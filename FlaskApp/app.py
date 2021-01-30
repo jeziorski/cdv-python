@@ -1,7 +1,19 @@
+
+import os
+
 from flask import Flask
-from flask import Flask, render_template
-from models import db
+from flask import render_template
 from flask import request
+
+from flask_sqlalchemy import SQLAlchemy
+
+project_dir = os.path.dirname(os.path.abspath(__file__))
+database_file = "sqlite:///{}".format(os.path.join(project_dir, "bookdatabase.db"))
+
+app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = database_file
+
+db = SQLAlchemy(app)
 
 
 app = Flask(__name__)
@@ -17,5 +29,4 @@ def ShowSignUp():
 
 if __name__ == "__main__":
     app.run()
-
 
