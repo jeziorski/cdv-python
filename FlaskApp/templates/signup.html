@@ -48,14 +48,17 @@
         <div class="col-lg-12">
           <h1 class="text-center" style="margin:15px 0">Cinema Sign Up</h1></div>
         <div class="col-lg-12 d-flex justify-content-center">
-          <form class="form-signin w-30 rounded" method="POST" action="showSignUp">
+          <form class="form-signin w-30 rounded" method="POST" action="/signUp">
 
-            <input type="name" name="inputName" id="inputName" class="form-control" placeholder="Name" required autofocus style="margin:15px 0">
+            <input type="name" name="Name" id="Name" class="form-control" placeholder="Name" autofocus style="margin:15px 0">
 
-            <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus style="margin:15px 0">
+            <input type="email" name="Email" id="Email" class="form-control" placeholder="Email address" required autofocus style="margin:15px 0">
 
-            <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required style="margin:15px 0">
+            <input type="password" name="Password" id="Password" class="form-control" placeholder="Password" required style="margin:15px 0">
 
+            {% if feedback %}
+            <p class="text-danger text-center">{{ feedback }}</p>
+            {% endif %}
             <input id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit" value="Sign up now!">
             <p>Already have an account? Click to <a href="login">login</a></p>
           </form>

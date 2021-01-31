@@ -1,5 +1,6 @@
 import os
-from flask import Flask, render_template,json, request
+
+from flask import Flask, render_template, json, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
@@ -22,15 +23,29 @@ def ShowSignUp():
         print(request.form)
     return render_template('signup.html')
 
-@app.route('/signUp',methods=['POST'])
+@app.route('/signUp',methods=["GET", "POST"])
 def signUp():
-    _name = request.form['inputName']
-    _email = request.form['inputEmail']
-    _password = request.form['inputPassword']
-    if _name and _email and _password:
-        return json.dumps({'html': '<span>All fields good !!</span>'})
-    else:
-        return json.dumps({'html': '<span>Enter the required fields</span>'})
+    if request.method == 'POST':
+        req = request.form
+
+        _name = request.form['Name']
+        _email = request.form['Email']
+        _password = request.form['Password']
+
+        missing = list()
+
+        for k, v in req.items():
+            if v == "":
+                missing.append(k)
+
+        if missing:
+            feedback = "Missing fields!"
+            return render_template("signup.html", feedback=feedback)
+
+        return redirect(request.url)
+
+    return render_template("signup.html")
+
 
 @app.route('/login', methods=["GET", "POST"])
 def Showlogin():
