@@ -1,5 +1,5 @@
 import os
-from models import User
+from models import User, Movie, Reservation
 from flask import Flask, render_template, json, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 
@@ -31,7 +31,8 @@ def signUp():
         _name = request.form['Name']
         _email = request.form['Email']
         _password = request.form['Password']
-        user = User(_name, _email, _password)
+        user = User(username =_name, email=_email, password=_password)
+
         missing = list()
 
         for k, v in req.items():
@@ -41,10 +42,10 @@ def signUp():
         if missing:
             feedback = "Missing fields!"
             return render_template("signup.html", feedback=feedback)
-
-        return redirect(request.url)
         db.session.add(user)
         success = "Now you can login"
+        return redirect(request.url)
+
         return render_template("signup.html", success=success)
     return render_template("signup.html")
 
@@ -93,8 +94,17 @@ def ShowMovies():
 
 @app.route('/addmovie', methods=["GET","POST"])
 def AddMovie():
-    movie = Movie()
+    _title = request.form['Title']
+    _date = request.form['Date']
+    _start_time = request.form['Time']
+    _duration_in_min = request.form['Duration']
+    _seats = request.form['Seats']
+    _director = request.form['director']
+    _ticket_price = request.form['Price']
+    movie = Movie(title=_title, date= _date, start_time=_start_time, duration_in_min=_duration_in_min, seats=_seats, director=_director, ticket_price = _ticket_price)
     db.session.add(movie)
+    db.session.commit()
+    db.session.close()
     return render_template('adminpanel.html')
 
 @app.route('/deletemovie', methods=["GET","POST"])
