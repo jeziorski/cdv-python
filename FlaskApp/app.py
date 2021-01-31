@@ -40,6 +40,14 @@ def Showlogin():
 def ShowAdmin():
         return render_template('adminpanel.html')
 
+@app.route('/client', methods=["GET", "POST"])
+def ShowClient():
+        return render_template('clientpanel.html')
+
+@app.route('/movies', methods=["GET", "POST"])
+def ShowMovies():
+        return render_template('movies.html')
+
 
 if __name__ == "__main__":
     app.run()
