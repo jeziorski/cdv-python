@@ -36,6 +36,10 @@ def signUp():
 def Showlogin():
         return render_template('login.html')
 
+@app.route('/admin', methods=["GET", "POST"])
+def ShowAdmin():
+        return render_template('adminpanel.html')
+
 
 if __name__ == "__main__":
     app.run()
