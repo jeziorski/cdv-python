@@ -32,6 +32,11 @@ def signUp():
     else:
         return json.dumps({'html': '<span>Enter the required fields</span>'})
 
+@app.route('/login', methods=["GET", "POST"])
+def Showlogin():
+        return render_template('login.html')
+
+
 if __name__ == "__main__":
     app.run()
 
