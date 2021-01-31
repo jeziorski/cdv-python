@@ -9,5 +9,7 @@ class Movie(db.Model):
     date = db.Column(db.DateTime, default=datetime.now)
     start_time = db.Column(db.Time(),nullable=False)
     duration_in_min = db.Column(db.Integer, unique=False, nullable=False)
-    seats = db.Column(db.Integer)
     director = db.Column(db.String(256), unique=False, nullable=False)
+    seats = db.Column(db.Integer)
+    price = db.Column(db.Integer, unique=False,nullable=False)
+
