@@ -93,14 +93,14 @@ def ShowMovies():
 
 @app.route('/addmovie', methods=["GET","POST"])
 def AddMovie():
-    _movieID = request.form['']
-    Movie.select().where(Movie.id == _movieID).get().delete_instance()
+    movie = Movie()
+    db.session.add(movie)
     return render_template('adminpanel.html')
 
 @app.route('/deletemovie', methods=["GET","POST"])
 def DeleteMovie():
     _movieID = request.form['deleteID']
-    Movie.select().where(Movie.id == _movieID).get().delete_instance()
+
     return render_template('adminpanel.html')
 
 @app.errorhandler(404)
