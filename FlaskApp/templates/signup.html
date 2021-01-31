@@ -57,7 +57,16 @@
             <input type="password" name="Password" id="Password" class="form-control" placeholder="Password" required style="margin:15px 0">
 
             {% if feedback %}
-            <p class="text-danger text-center">{{ feedback }}</p>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> {{ feedback }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
+            {% if success %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>Error!</strong> {{ success }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             {% endif %}
             <input id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit" value="Sign up now!">
             <p>Already have an account? Click to <a href="login">login</a></p>
