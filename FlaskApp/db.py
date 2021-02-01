@@ -24,7 +24,6 @@ class User(Model):
     username = Column(String(256), unique=True, nullable=False)
     email = Column(String(256), nullable=False)
     password = Column(String(256), nullable=False)
-    #reservations = relationship('Reservation', backref='User')
     creation_date = Column(DateTime, default=datetime.now)
 
 

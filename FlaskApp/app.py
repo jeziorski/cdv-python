@@ -25,7 +25,8 @@ def ShowSignUp():
         print(request.form)
     return render_template('signup.html')
 
-@app.route('/signUp',methods=["GET", "POST"])
+
+@app.route('/signUp', methods=["GET", "POST"])
 def signUp():
     if request.method == 'POST':
         req = request.form
@@ -85,43 +86,43 @@ def Logging():
         return render_template("login.html", success=success)
     return render_template("login.html")
 
+
 @app.route('/admin', methods=["GET", "POST"])
 def ShowAdmin():
         return render_template('adminpanel.html')
+
 
 @app.route('/client', methods=["GET", "POST"])
 def ShowClient():
         return render_template('clientpanel.html')
 
+
 @app.route('/movies', methods=["GET", "POST"])
 def ShowMovies():
         return render_template('movies.html')
 
-@app.route('/addmovie', methods=["GET","POST"])
-def AddMovie():
-    _title = request.form['Title']
-    _date = request.form['Date']
-    _start_time = request.form['Time']
-    _duration_in_min = request.form['Duration']
-    _director = request.form['director']
-    _seats = request.form['Seats']
-    _price = request.form['Price']
-    con = sqlite3.connect('cinema.db')
-    con.row_factory = sqlite3.Row
-    cur = con.cursor()
-    cur.execute('INSERT INTO User VALUES(NULL, ?, ?, ?, ?, ?, ?);', (_title, _date, _start_time, _duration_in_min, _director, _seats, _price))
-    con.commit()
-    con.close()
-    #cur.execute('INSERT INTO Movie VALUES(NULL, ?, ?, ?, ?, ?, ?, ?);', )
-    #con.commit()
-    #con.close()
-    return render_template('adminpanel.html')
 
-    #print(request.form)
-    #movie = Movie(title=_title, date=_date, start_time=_start_time, duration_in_min=_duration_in_min, seats=_seats, director=_director, price=_ticket_price)
-    #db.session.add(movie)
-    #db.session.commit()
-    #db.session.close()
+@app.route('/addmovie', methods=["GET", "POST"])
+def AddMovie():
+    if request.method == 'POST':
+
+        _title = request.form['Title']
+        _date = request.form['Date']
+        _start_time = request.form['Time']
+        _duration_in_min = request.form['Duration']
+        _director = request.form['Director']
+        _seats = request.form['Seats']
+        _price = request.form['Price']
+
+        con = sqlite3.connect('cinema.db')
+        con.row_factory = sqlite3.Row
+        cur = con.cursor()
+        cur.execute('INSERT INTO Movie VALUES(NULL, ?, ?, ?, ?, ?, ?, ?);', (_title, _date, _start_time, _duration_in_min,
+                                                                          _director, _seats, _price))
+        con.commit()
+        con.close()
+        return render_template('adminpanel.html')
+    return render_template('adminpanel.html')
 
 
 @app.route('/deletemovie', methods=["GET","POST"])
