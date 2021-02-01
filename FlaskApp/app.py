@@ -3,12 +3,12 @@ from models import User, Movie, Reservation
 from flask import Flask, render_template, json, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 
-project_dir = os.path.dirname(os.path.abspath(__file__))
-database_file = "sqlite:///{}".format(os.path.join(project_dir, "bookdatabase.db"))
-
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = database_file
+project_dir = os.path.dirname(os.path.abspath(__file__)) ## Obstawiam ze to bedzie do wyjebania
+database_file = "sqlite:///{}".format(os.path.join(project_dir, "bookdatabase.db"))## To tez
 
+
+app.config["SQLALCHEMY_DATABASE_URI"] = database_file #### i to do ogarniecia
 db = SQLAlchemy(app)
 
 
