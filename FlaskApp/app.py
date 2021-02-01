@@ -1,6 +1,6 @@
 import os
-from models import User, Movie, Reservation
-from flask import Flask, render_template, json, request, redirect
+import db
+from flask import Flask, render_template, json, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -8,7 +8,7 @@ app = Flask(__name__)
 #database_file = "sqlite:///{}".format(os.path.join(project_dir, "bookdatabase.db"))## To tez
 
 
-app.config["SQLALCHEMY_DATABASE_URI"] = database_file #### i to do ogarniecia
+#app.config["SQLALCHEMY_DATABASE_URI"] = database_file #### i to do ogarniecia
 db = SQLAlchemy(app)
 
 
@@ -31,7 +31,7 @@ def signUp():
         _name = request.form['Name']
         _email = request.form['Email']
         _password = request.form['Password']
-        user = User(username =_name, email=_email, password=_password)
+        user = db.User(username =_name, email=_email, password=_password)
 
         missing = list()
 
@@ -98,20 +98,22 @@ def AddMovie():
     _date = request.form['Date']
     _start_time = request.form['Time']
     _duration_in_min = request.form['Duration']
-    _seats = request.form['Seats']
     _director = request.form['director']
+    _seats = request.form['Seats']
     _ticket_price = request.form['Price']
-    movie = Movie(title=_title, date= _date, start_time=_start_time, duration_in_min=_duration_in_min, seats=_seats, director=_director, ticket_price = _ticket_price)
+    movie = db.Movie(title=_title, date=_date, start_time=_start_time, duration_in_min=_duration_in_min, seats=_seats, director=_director, ticket_price = _ticket_price)
     db.session.add(movie)
     db.session.commit()
     db.session.close()
-    return render_template('adminpanel.html')
+    #return render_template('adminpanel.html')
+    return redirect(request.url)
 
 @app.route('/deletemovie', methods=["GET","POST"])
 def DeleteMovie():
     _movieID = request.form['deleteID']
 
     return render_template('adminpanel.html')
+
 
 @app.errorhandler(404)
 def not_found(error):
