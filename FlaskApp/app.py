@@ -84,8 +84,8 @@ def Logging():
         #if zle dane pokaz błąd
 
         #if dobre dane przekieruj
-        return render_template("login.html", success=success)
-    return render_template("login.html")
+        return redirect('/admin')
+    return redirect('/admin')
 
 
 
@@ -137,10 +137,11 @@ def AddMovie():
         con.row_factory = sqlite3.Row
         cur = con.cursor()
         cur.execute('INSERT INTO Movie VALUES(NULL, ?, ?, ?, ?, ?, ?, ?);', (_title, _date, _start_time, _duration_in_min,
-                                                                          _director, _seats, _price))
+                                                                        _director, _seats, _price))
+
         con.commit()
-        return render_template('adminpanel.html')
-    return render_template('adminpanel.html')
+        return redirect('/admin')
+    return redirect('/admin')
 
 
 @app.route('/deletemovie', methods=["GET","POST"])
@@ -150,7 +151,7 @@ def DeleteMovie():
     con.row_factory = sqlite3.Row
     cur = con.cursor()
     cur.execute('DELETE FROM Movie WHERE id=?, (_movie_id)')
-    return render_template('adminpanel.html')
+    return redirect('/admin')
 
 
 @app.errorhandler(404)
