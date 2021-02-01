@@ -59,29 +59,19 @@
             <div class="col-lg-12">
                 <h2>Films</h2>
             </div>
+            {% for m in movie_list %}
             <div class="col-lg-12 shadow-sm" style="margin:15px 0">
-                <span class="h3">Film title </span><span class="badge rounded-pill bg-light text-dark">Warning news</span>
-                <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-                <a class="btn btn-primary" href="#" style="margin:15px 0">Tickets</a>
+                <p class="h3">{{ m.title }} - {{ m.director }}</p>
+                <p><span>Play on {{ m.date }} </span></p>
+                <p><span><strong>Start at {{ m.start_time }}</strong></span></p>
+                <p><span>Ticket price: {{ m.price }} PLN | Available tickets:</span><span class="badge rounded-pill bg-warning text-dark">{{ m.seats }}</span></p>
+                <p><span></span></p>
+                <a class="btn btn-primary" href="/client" style="margin:15px 0">Get your tickets</a>
             </div>
-            <div class="col-lg-12 shadow-sm" style="margin:15px 0">
-                <span class="h3">Film title </span><span class="badge rounded-pill bg-light text-dark"> Warning news</span>
-                <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-                <a class="btn btn-primary" href="#" style="margin:15px 0">Tickets</a>
-            </div>
-            <div class="col-lg-12 shadow-sm" style="margin:15px 0">
-                <span class="h3">Film title </span><span class="badge rounded-pill bg-light text-dark">Bad news</span>
-                <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-                <a class="btn btn-primary" href="#" style="margin:15px 0">Tickets</a>
-            </div>
-            <div class="col-lg-12 shadow-sm" style="margin:15px 0">
-                <span class="h3">Film title </span><span class="badge rounded-pill bg-light text-dark"></span>
-                <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-                <a class="btn btn-primary" style="margin:15px 0" href="#">Tickets</a>
-            </div>
+            {% endfor %}
         </div>
 
-        <footer class="footer bottom-0 w-100">
+        <footer class="footer position-fixed bottom-0 w-100">
             <p>&copy; Lukasz Adamczak & Daniel Jeziorski - CDV</p>
         </footer>
 

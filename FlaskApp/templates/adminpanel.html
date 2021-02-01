@@ -92,12 +92,12 @@
           </form>
         </div>
         <div class="col-lg-6 col-md-6">
-          <form class="form-signin rounded" method="POST" action=" ">
+          <form class="form-signin rounded" method="POST" action="/updatemovie">
 
 
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-film"></i></span>
-                <input type="number" min="1" name="deleteID" class="form-control" placeholder="ID" aria-label="duration" required aria-describedby="basic-addon1">
+                <input type="text" name="Title" class="form-control" placeholder="Title of film" required >
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-calendar-date"></i></span>
@@ -126,7 +126,7 @@
             </div>
             <div class="input-group mb-3">
 
-                <input id="btnAddFilm" class="btn btn-outline-secondary btn-block" type="submit" value="Update film">
+                <input id="btnUpdateFilm" class="btn btn-outline-secondary btn-block" type="submit" value="Update film">
             </div>
 
 
@@ -139,7 +139,6 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th scope="col">ID</th>
                       <th scope="col">Title</th>
                       <th scope="col">Date</th>
                       <th scope="col">Start time</th>
@@ -152,20 +151,19 @@
                   </thead>
                   <tbody>
                     {% for m in movie_list %}
-                    <tr>
-                      <th>{{ m.id }}</th>
-                      <td>{{ m.title }}</td>
-                      <td>{{ m.date }}</td>
-                      <td>{{ m.start_time }}</td>
-                      <td>{{ m.duration_in_min }}</td>
-                      <td>{{ m.director }}</td>
-                      <td>{{ m.seats }}</td>
-                      <td>{{ m.price }}</td>
-                      <td><form>
-                          <input type="hidden" value="{{ m.id }}"/>
-                          <input type="submit" class="btn btn-sm btn-outline-danger" value="Delete film"/>
+                    <tr><form method="POST">
+                      <td><input type="text" name="Title" class="form-control" placeholder="Title of film" required value="{{ m.title }}"></td>
+                      <td><input type="text" name="Date" class="form-control" placeholder="Date of film" required value="{{ m.date }}"></td>
+                      <td><input type="time" name="Time" class="form-control" placeholder="Start of film" required value="{{ m.start_time }}"></td>
+                      <td><input type="number" min="0" name="Duration" class="form-control" placeholder="Duration of film" required value="{{ m.duration_in_min }}"></td>
+                      <td><input type="text" name="Director" class="form-control" placeholder="Director" required value="{{ m.director }}"></td>
+                      <td><input type="number" min="1" name="Seats" class="form-control" placeholder="Free seats" required value="{{ m.seats }}"></td>
+                      <td><input type="number" min="1" name="Price" class="form-control" placeholder="Ticket price" required value="{{ m.price }}"></td>
+                      <td>
+                          <input type="hidden" name="Id" value="{{ m.id }}"/>
+                          <input type="submit" class="btn btn-sm btn-outline-secondary" value="Up" formaction="/updatemovie"/>
+                          <input type="submit" class="btn btn-sm btn-outline-danger" value="Del" formaction="/deletemovie"/>
                       </form></td>
-
                     </tr>
                     {% endfor %}
                   </tbody>

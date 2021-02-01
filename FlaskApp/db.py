@@ -65,5 +65,7 @@ session.add_all([
     Movie(title="Ocalony", start_time='13:20', duration_in_min=134, director='Peter Berg', seats=100, price=20),
 ])
 
+
+
 session.commit()
 

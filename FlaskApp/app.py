@@ -13,12 +13,21 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+def AllMovies():
+    con = sqlite3.connect('cinema.db')
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
 
-
+    movie_list = cur.execute(
+        """
+        SELECT id, title, date, start_time, duration_in_min, director, seats, price FROM Movie
+        """)
+    return movie_list
 app = Flask(__name__)
 @app.route("/")
 def main():
-    return render_template('index.html')
+    movie_list = AllMovies()
+    return render_template('index.html', movie_list=movie_list)
 
 @app.route('/showSignUp', methods=["GET", "POST"])
 def ShowSignUp():
@@ -91,14 +100,7 @@ def Logging():
 
 @app.route('/admin', methods=["GET", "POST"])
 def ShowAdmin():
-    con = sqlite3.connect('cinema.db')
-    con.row_factory = sqlite3.Row
-    cur = con.cursor()
-    movie_list = cur.execute(
-        """
-        SELECT id, title, date, start_time, duration_in_min, director, seats, price FROM Movie
-        """)
-    con.commit()
+    movie_list = AllMovies()
     return render_template('adminpanel.html', movie_list = movie_list)
 
 
@@ -109,15 +111,7 @@ def ShowClient():
 
 @app.route('/movies', methods=["GET", "POST"])
 def ShowMovies():
-    con = sqlite3.connect('cinema.db')
-    con.row_factory = sqlite3.Row
-    cur = con.cursor()
-
-    movie_list = cur.execute(
-        """
-        SELECT title, date, start_time, duration_in_min, director, seats, price FROM Movie
-        """)
-    con.commit()
+    movie_list = AllMovies()
     return render_template('movies.html', movie_list = movie_list)
 
 
@@ -146,13 +140,34 @@ def AddMovie():
 
 @app.route('/deletemovie', methods=["GET","POST"])
 def DeleteMovie():
-    _movieID = request.form['deleteID']
+    _movieID = request.form['Id']
     con = sqlite3.connect('cinema.db')
     con.row_factory = sqlite3.Row
     cur = con.cursor()
-    cur.execute('DELETE FROM Movie WHERE id=?, (_movie_id)')
+    cur.execute('DELETE FROM Movie WHERE id=?', (_movieID))
+    con.commit()
     return redirect('/admin')
 
+@app.route('/updatemovie', methods=["GET","POST"])
+def UpdateMovie():
+    if request.method == 'POST':
+        _movie_id = request.form['Id']
+        _title = request.form['Title']
+        _date = request.form['Date']
+        _start_time = request.form['Time']
+        _duration_in_min = request.form['Duration']
+        _director = request.form['Director']
+        _seats = request.form['Seats']
+        _price = request.form['Price']
+
+        con = sqlite3.connect('cinema.db')
+        con.row_factory = sqlite3.Row
+        cur = con.cursor()
+        cur.execute('UPDATE Movie SET title=_title, date=_date, start_time=_start_time , duration_in_min=_duration_in_min, director=_director, seats=_seats, price=_price WHERE id=_movie_id' )
+
+        con.commit()
+        return redirect('/admin')
+    return redirect('/admin')
 
 @app.errorhandler(404)
 def not_found(error):
