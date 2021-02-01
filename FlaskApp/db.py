@@ -67,4 +67,4 @@ session.add_all([
 ])
 
 session.commit()
-session.close()
+

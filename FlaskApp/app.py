@@ -1,14 +1,16 @@
 import os
-import db
+from db import User, Reservation, Movie
 from flask import Flask, render_template, json, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
+import sqlite3
+from datetime import datetime
 
 app = Flask(__name__)
 #project_dir = os.path.dirname(os.path.abspath(__file__)) ## Obstawiam ze to bedzie do wyjebania
 #database_file = "sqlite:///{}".format(os.path.join(project_dir, "bookdatabase.db"))## To tez
-
-
 #app.config["SQLALCHEMY_DATABASE_URI"] = database_file #### i to do ogarniecia
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
 
@@ -31,7 +33,6 @@ def signUp():
         _name = request.form['Name']
         _email = request.form['Email']
         _password = request.form['Password']
-        user = db.User(username =_name, email=_email, password=_password)
 
         missing = list()
 
@@ -42,10 +43,14 @@ def signUp():
         if missing:
             feedback = "Missing fields!"
             return render_template("signup.html", feedback=feedback)
-        db.session.add(user)
-        success = "Now you can login"
-        return redirect(request.url)
-
+        success = "Now you can log in"
+        con = sqlite3.connect('cinema.db')
+        con.row_factory = sqlite3.Row
+        cur = con.cursor()
+        cur.execute('INSERT INTO User VALUES(NULL, ?, ?, ?, ?);', (_name, _email, _password, datetime.now()))
+        con.commit()
+        con.close()
+        #return redirect(request.url)
         return render_template("signup.html", success=success)
     return render_template("signup.html")
 
@@ -100,13 +105,24 @@ def AddMovie():
     _duration_in_min = request.form['Duration']
     _director = request.form['director']
     _seats = request.form['Seats']
-    _ticket_price = request.form['Price']
-    movie = db.Movie(title=_title, date=_date, start_time=_start_time, duration_in_min=_duration_in_min, seats=_seats, director=_director, ticket_price = _ticket_price)
-    db.session.add(movie)
-    db.session.commit()
-    db.session.close()
-    #return render_template('adminpanel.html')
-    return redirect(request.url)
+    _price = request.form['Price']
+    con = sqlite3.connect('cinema.db')
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    cur.execute('INSERT INTO User VALUES(NULL, ?, ?, ?, ?, ?, ?);', (_title, _date, _start_time, _duration_in_min, _director, _seats, _price))
+    con.commit()
+    con.close()
+    #cur.execute('INSERT INTO Movie VALUES(NULL, ?, ?, ?, ?, ?, ?, ?);', )
+    #con.commit()
+    #con.close()
+    return render_template('adminpanel.html')
+
+    #print(request.form)
+    #movie = Movie(title=_title, date=_date, start_time=_start_time, duration_in_min=_duration_in_min, seats=_seats, director=_director, price=_ticket_price)
+    #db.session.add(movie)
+    #db.session.commit()
+    #db.session.close()
+
 
 @app.route('/deletemovie', methods=["GET","POST"])
 def DeleteMovie():
