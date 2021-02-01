@@ -99,7 +99,14 @@ def ShowClient():
 
 @app.route('/movies', methods=["GET", "POST"])
 def ShowMovies():
-        return render_template('movies.html')
+    con = sqlite3.connect('cinema.db')
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    movie_list = cur.execute(
+        """
+        SELECT title, date, start_time, duration_in_min, director, seats, price FROM Movie
+        """)
+    return render_template('movies.html', movie_list = movie_list)
 
 
 @app.route('/addmovie', methods=["GET", "POST"])
