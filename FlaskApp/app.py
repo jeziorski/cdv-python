@@ -14,6 +14,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
+
 app = Flask(__name__)
 @app.route("/")
 def main():
@@ -87,9 +88,18 @@ def Logging():
     return render_template("login.html")
 
 
+
 @app.route('/admin', methods=["GET", "POST"])
 def ShowAdmin():
-        return render_template('adminpanel.html')
+    con = sqlite3.connect('cinema.db')
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    movie_list = cur.execute(
+        """
+        SELECT id, title, date, start_time, duration_in_min, director, seats, price FROM Movie
+        """)
+    con.commit()
+    return render_template('adminpanel.html', movie_list = movie_list)
 
 
 @app.route('/client', methods=["GET", "POST"])
@@ -102,10 +112,12 @@ def ShowMovies():
     con = sqlite3.connect('cinema.db')
     con.row_factory = sqlite3.Row
     cur = con.cursor()
+
     movie_list = cur.execute(
         """
         SELECT title, date, start_time, duration_in_min, director, seats, price FROM Movie
         """)
+    con.commit()
     return render_template('movies.html', movie_list = movie_list)
 
 
@@ -127,7 +139,6 @@ def AddMovie():
         cur.execute('INSERT INTO Movie VALUES(NULL, ?, ?, ?, ?, ?, ?, ?);', (_title, _date, _start_time, _duration_in_min,
                                                                           _director, _seats, _price))
         con.commit()
-        con.close()
         return render_template('adminpanel.html')
     return render_template('adminpanel.html')
 

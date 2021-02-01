@@ -97,12 +97,7 @@
 
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-film"></i></span>
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>Select id of film</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
-                </select>
+                <input type="number" min="1" name="deleteID" class="form-control" placeholder="ID" aria-label="duration" required aria-describedby="basic-addon1">
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1"><i class="bi bi-calendar-date"></i></span>
@@ -151,48 +146,28 @@
                       <th scope="col">Duration</th>
                       <th scope="col">Director</th>
                       <th scope="col">Seats</th>
+                      <th scope="col">Price</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {% for m in movie_list %}
                     <tr>
-                      <th scope="row">1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>@mdo</td>
-                      <td>@mdo</td>
-                      <td>@mdo</td>
-                      <td>@mdo</td>
+                      <th>{{ m.id }}</th>
+                      <td>{{ m.title }}</td>
+                      <td>{{ m.date }}</td>
+                      <td>{{ m.start_time }}</td>
+                      <td>{{ m.duration_in_min }}</td>
+                      <td>{{ m.director }}</td>
+                      <td>{{ m.seats }}</td>
+                      <td>{{ m.price }}</td>
                       <td><form>
-                          <input type="hidden" name="deleteID"value="x"/>
+                          <input type="hidden" value="{{ m.id }}"/>
                           <input type="submit" class="btn btn-sm btn-outline-danger" value="Delete film"/>
                       </form></td>
+
                     </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>@fat</td>
-                      <td>@fat</td>
-                      <td>@fat</td>
-                      <td>@fat</td>
-                      <td><form>
-                          <input type="hidden" value="x"/>
-                          <input type="submit" class="btn btn-sm btn-outline-danger" value="Delete film"/>
-                      </form></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td colspan="2">Larry the Bird</td>
-                      <td>@twitter</td>
-                      <td>@twitter</td>
-                      <td>@twitter</td>
-                      <td>@twitter</td>
-                      <td><form>
-                          <input type="hidden" value="x"/>
-                          <input type="submit" class="btn btn-sm btn-outline-danger" value="Delete film"/>
-                      </form></td>
-                    </tr>
+                    {% endfor %}
                   </tbody>
                 </table>
             </div>
