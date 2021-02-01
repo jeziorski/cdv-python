@@ -128,7 +128,10 @@ def AddMovie():
 @app.route('/deletemovie', methods=["GET","POST"])
 def DeleteMovie():
     _movieID = request.form['deleteID']
-
+    con = sqlite3.connect('cinema.db')
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    cur.execute('DELETE FROM Movie WHERE id=?, (_movie_id)')
     return render_template('adminpanel.html')
 
 
