@@ -107,7 +107,7 @@ def ShowAdmin():
 @app.route('/client', methods=["GET", "POST"])
 def ShowClient():
     movie_list=AllMovies()
-    return render_template('clientpanel.html', movie_list=movie_list, price1=price1)
+    return render_template('clientpanel.html', movie_list=movie_list)
 
 
 @app.route('/movies', methods=["GET", "POST"])
@@ -118,6 +118,7 @@ def ShowMovies():
 @app.route('/reservation', methods=["GET", "POST"])
 def ReservationS1():
     if request.method == 'POST':
+        _movie_id = request.form['Id']
         _title = request.form['Title']
         _date = request.form['Date']
         _start_time = request.form['Time']
@@ -190,14 +191,14 @@ def Reserve():
         _price = request.form['Price']
         _date = request.form['Date']
         _time = request.form['Time']
-        #_total_price= _price * _tickets
+        _total_price= int(_price)*int(_tickets)
 
         con = sqlite3.connect('cinema.db')
         con.row_factory = sqlite3.Row
         cur = con.cursor()
         cur.execute('INSERT INTO Reservation VALUES(NULL, ?, ?, ?, ?, ?, ? , ?);', (_name, _email, _title, _tickets,
-                                                                                    _price, _date, _time ))
-
+                                                                                   _total_price, _date, _time ))
+        cur.execute('')
         con.commit()
         return redirect('/client')
     return redirect('/client')

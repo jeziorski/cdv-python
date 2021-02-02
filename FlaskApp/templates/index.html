@@ -67,6 +67,7 @@
                 <p><span><strong>Start at {{ m.start_time }}</strong></span></p>
                 <p><span>Ticket price: {{ m.price }} PLN | Available tickets:</span><span class="badge rounded-pill bg-warning text-dark">{{ m.seats }}</span></p>
                 <p><span></span></p>
+                    <input type="hidden" name="Id" class="form-control"  required readonly value="{{ m.id}}">
                     <input type="hidden" name="Title" class="form-control"  required readonly value="{{ m.title}}">
                     <input type="hidden" name="Date" class="form-control"  required readonly value="{{ m.date}}">
                     <input type="hidden" name="Time" class="form-control"  required readonly value="{{ m.start_time}}">
