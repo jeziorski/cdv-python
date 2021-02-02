@@ -57,8 +57,9 @@
                 <select class="form-select" name="title" aria-label="Default select example">
                   <option selected>Select title of film</option>
                    {% for m in movie_list %}
-                    <option value="{{ m.id }}"> {{ m.title}}  {{m.date}}  {{m.start_time}}  {{m.price}}pln</option>
-                   {% endfor %}
+                    <option value="{{ m.id }}"> {{ m.title}}  {{m.date}}  {{m.start_time}}  {{m.price}}pln
+                    </option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="input-group mb-3">

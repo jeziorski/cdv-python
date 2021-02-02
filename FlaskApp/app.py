@@ -179,12 +179,11 @@ def Reserve():
         _title = request.form['title']
         _seats = request.form['inputSeats']
         _name = request.form['name']
-        _email = request.form['email']
-        _total_price = request.form['totalPrice']
+
         con = sqlite3.connect('cinema.db')
         con.row_factory = sqlite3.Row
         cur = con.cursor()
-        cur.execute('INSERT INTO Reservation VALUES(NULL, ?, ?, ?, ?, ?);', (_name, _email, _title, _seats, _total_price ))
+        cur.execute('INSERT INTO Reservation VALUES(NULL, ?, ?, ?, ?, ?);', (_name, _email, _title, _seats))
 
         con.commit()
         return redirect('/client')
