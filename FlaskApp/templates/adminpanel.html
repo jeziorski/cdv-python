@@ -147,12 +147,12 @@
                   <tbody>
                    {% for m in reservation_list %}
                     <tr>
-                      <th scope="row">1</th>
+
                       <td>{{m.id}}</td>
                       <td>{{m.title}}</td>
                       <td>{{m.date}}</td>
-                      <td>{{email}}</td>
-                      <td>{{tickets}}</td>
+                      <td>{{m.email}}</td>
+                      <td>{{m.tickets}}</td>
                     </tr>
                    {% endfor %}
                   </tbody>
