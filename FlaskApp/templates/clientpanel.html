@@ -49,44 +49,38 @@
       </div>
       <div class="row">
         <div class="col-lg-6 col-md-6">
-          <form class="form-signin rounded" method="POST" action="/reserve">
+          <form class="form-signin rounded" method="POST" action="/addmovie">
 
 
             <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1"><i class="bi bi-film"></i></span>
-                <select class="form-select" name="title" aria-label="Default select example">
-                  <option selected>Select title of film</option>
-                   {% for m in movie_list %}
-                    <option value="{{ m.id }}"> {{ m.title}}  {{m.date}}  {{m.start_time}}  {{m.price}}pln
-                    </option>
-                    {% endfor %}
-                </select>
+                <span class="input-group-text" ><i class="bi bi-film"></i></span>
+                <input type="text" name="Title" class="form-control" placeholder="Title of film" required readonly value="{{ m.title}}">
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1"><i class="bi bi-people-fill"></i></span>
-                <input type="number" min="0" name="inputSeats" class="form-control" placeholder="Seats" aria-label="duration" required aria-describedby="basic-addon1">
+                <span class="input-group-text" ><i class="bi bi-calendar-date"></i></span>
+                <input type="date" name="Date" class="form-control" placeholder="Date of film"  required readonly value="{{ m.title}}">
             </div>
-
-            <!--<div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">PLN</span>
-                <input min="0" name="totalPrice" class="form-control" placeholder="Total price" aria-label="duration" required aria-describedby="basic-addon1">
-            </div> -->
-            <p class="display-6">Information about you:</p>
-
-              <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person"></i></span>
-                <input type="text" name="name" class="form-control" placeholder="Your name" aria-label="duration" required aria-describedby="basic-addon1">
+            <div class="input-group mb-3">
+                <span class="input-group-text" ><i class="bi bi-clock"></i></span>
+                <input type="time" name="Time" class="form-control" placeholder="Start of film" required readonly value="{{ m.title}}">
             </div>
-
-              <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1"><i class="bi bi-envelope"></i></span>
-                <input type="email" min="0" name="email" class="form-control" placeholder="Your mail" aria-label="duration" required aria-describedby="basic-addon1">
+            <div class="input-group mb-3">
+                <span class="input-group-text" ><i class="bi bi-alarm"></i></span>
+                <input type="number" min="0" name="Duration" class="form-control" placeholder="Duration of film" required readonly value="{{ m.title}}">
             </div>
-              <div class="input-group mb-3">
-
-                <input id="btnAddFilm" class="btn btn-outline-secondary btn-block" type="submit" value="Reserve">
+            <div class="input-group mb-3">
+                <span class="input-group-text" ><i class="bi bi-wallet"></i></span>
+                <input type="number" min="0" name="Price" class="form-control" placeholder="Ticket price" required readonly value="{{ m.title}}">
             </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" ><i class="bi bi-people-fill"></i></span>
+                <input type="number" min="0" name="Seats" class="form-control" placeholder="Tickets" required >
+            </div>
+            <div class="input-group mb-3">
 
+                <input id="btnAddFilm" class="btn btn-primary btn-block" type="submit" value="Reserve">
+            </div>
+          </form>
 
         </div>
           <div class="col-lg-6 col-md-6 text-center">
@@ -94,7 +88,7 @@
              <a type="button" class="btn btn-primary btn-lg" href="/">Back to home</a>
               <a type="button" class="btn btn-secondary btn-lg" href="movies">Check all movies</a>
           </div>
-          </form>
+
       </div>
 
         <div class="row" style="margin-bottom:35px"><h1 class="text-center" style="margin:15px 0">My Reservations</h1>
