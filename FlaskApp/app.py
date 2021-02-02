@@ -101,12 +101,14 @@ def Logging():
 @app.route('/admin', methods=["GET", "POST"])
 def ShowAdmin():
     movie_list = AllMovies()
-    return render_template('adminpanel.html', movie_list = movie_list)
+    return render_template('adminpanel.html', movie_list=movie_list)
 
 
 @app.route('/client', methods=["GET", "POST"])
 def ShowClient():
-        return render_template('clientpanel.html')
+    movie_list=AllMovies()
+    price1=AllMovies()
+    return render_template('clientpanel.html', movie_list=movie_list, price1=price1)
 
 
 @app.route('/movies', methods=["GET", "POST"])
@@ -168,6 +170,25 @@ def UpdateMovie():
         con.commit()
         return redirect('/admin')
     return redirect('/admin')
+
+
+@app.route('/reserve', methods=["GET", "POST"])
+def Reserve():
+    if request.method == 'POST':
+
+        _title = request.form['title']
+        _seats = request.form['inputSeats']
+        _name = request.form['name']
+        _email = request.form['email']
+        _total_price = request.form['totalPrice']
+        con = sqlite3.connect('cinema.db')
+        con.row_factory = sqlite3.Row
+        cur = con.cursor()
+        cur.execute('INSERT INTO Reservation VALUES(NULL, ?, ?, ?, ?, ?);', (_name, _email, _title, _seats, _total_price ))
+
+        con.commit()
+        return redirect('/client')
+    return redirect('/client')
 
 @app.errorhandler(404)
 def not_found(error):

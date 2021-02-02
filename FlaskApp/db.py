@@ -1,7 +1,7 @@
 import os
 from sqlalchemy import Column, ForeignKey, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from datetime import datetime
+from datetime import datetime, date
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import *
 
@@ -44,7 +44,7 @@ class Movie(Model):
     __tablename__ = 'movie'
     id = Column(Integer, primary_key=True)
     title = Column(String(256), nullable=False)
-    date = Column(DateTime, default=datetime.now)
+    date = Column(Date)
     start_time = Column(String(256), nullable=False)
     duration_in_min = Column(Integer, unique=False, nullable=False)
     director = Column(String(256), unique=False, nullable=False)
@@ -65,8 +65,8 @@ if not session.query(User).count():
 
 
 session.add_all([
-    Movie(title="Taxi 3", start_time='15:50', duration_in_min=120, director='Gérard Krawczyk', seats=80, price=20),
-    Movie(title="Ocalony", start_time='13:20', duration_in_min=134, director='Peter Berg', seats=100, price=20),
+    Movie(title="Taxi 3", date=date(2021,2,2), start_time='15:50', duration_in_min=120, director='Gérard Krawczyk', seats=80, price=20),
+    Movie(title="Ocalony", date=date(2021,2,2), start_time='13:20', duration_in_min=134, director='Peter Berg', seats=100, price=20),
 ])
 
 session.commit()
