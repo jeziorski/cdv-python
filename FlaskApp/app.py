@@ -124,7 +124,7 @@ def ReservationS1():
         _start_time = request.form['Time']
         _duration_in_min = request.form['Duration']
         _price = request.form['Price']
-    return render_template('clientpanel.html', _title=_title, _date=_date, _start_time=_start_time, _duration_in_min=_duration_in_min, _price=_price)
+    return render_template('clientpanel.html', _title=_title, _date=_date, _start_time=_start_time, _duration_in_min=_duration_in_min, _price=_price, _movie_id=_movie_id)
 
 @app.route('/addmovie', methods=["GET", "POST"])
 def AddMovie():
