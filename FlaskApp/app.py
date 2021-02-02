@@ -176,14 +176,16 @@ def UpdateMovie():
 def Reserve():
     if request.method == 'POST':
 
-        _title = request.form['title']
-        _seats = request.form['inputSeats']
         _name = request.form['name']
+        _email = request.form['email']
+        _title = request.form['title']
+        _tickets = request.form['inputSeats']
+        _price = request.form['price']
 
         con = sqlite3.connect('cinema.db')
         con.row_factory = sqlite3.Row
         cur = con.cursor()
-        cur.execute('INSERT INTO Reservation VALUES(NULL, ?, ?, ?, ?, ?);', (_name, _email, _title, _seats))
+        cur.execute('INSERT INTO Reservation VALUES(NULL, ?, ?, ?, ?, ?);', (_name, _email, _title, _tickets, _price*_tickets))
 
         con.commit()
         return redirect('/client')
