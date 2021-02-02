@@ -163,7 +163,7 @@ def UpdateMovie():
         con = sqlite3.connect('cinema.db')
         con.row_factory = sqlite3.Row
         cur = con.cursor()
-        cur.execute('UPDATE Movie SET title=_title, date=_date, start_time=_start_time , duration_in_min=_duration_in_min, director=_director, seats=_seats, price=_price WHERE id=_movie_id' )
+        cur.execute('UPDATE Movie SET title=?, date=?, start_time=? , duration_in_min=?, director=?, seats=?, price=? WHERE id=?', (_title, _date, _start_time , _duration_in_min, _director, _seats, _price, _movie_id))
 
         con.commit()
         return redirect('/admin')
@@ -175,4 +175,3 @@ def not_found(error):
 
 if __name__ == "__main__":
     app.run()
-

@@ -30,16 +30,20 @@ class User(Model):
 class Reservation(Model):
     __tablename__ = 'reservation'
     id = Column(Integer, primary_key=True)
-    movie_id = Column(Integer, ForeignKey('movie.id'))
-    user_id = Column(Integer, ForeignKey('user.id'))
+    name = Column(String(256), nullable=False)
     email = Column(String(256), nullable=False)
+    title = Column(String(256),nullable=False)
     tickets = Column(Integer, nullable=False)
+    total_price = Column(Integer, nullable=False)
+
+    #movie_id = Column(Integer, ForeignKey('movie.id'))
+    #user_id = Column(Integer, ForeignKey('user.id'))
 
 
 class Movie(Model):
     __tablename__ = 'movie'
     id = Column(Integer, primary_key=True)
-    title = Column(String(256), unique=True)
+    title = Column(String(256), nullable=False)
     date = Column(DateTime, default=datetime.now)
     start_time = Column(String(256), nullable=False)
     duration_in_min = Column(Integer, unique=False, nullable=False)
@@ -61,11 +65,9 @@ if not session.query(User).count():
 
 
 session.add_all([
-    Movie(title="Taxi 3",start_time='15:50', duration_in_min=120, director='Gérard Krawczyk', seats=80, price=20),
+    Movie(title="Taxi 3", start_time='15:50', duration_in_min=120, director='Gérard Krawczyk', seats=80, price=20),
     Movie(title="Ocalony", start_time='13:20', duration_in_min=134, director='Peter Berg', seats=100, price=20),
 ])
-
-
 
 session.commit()
 
