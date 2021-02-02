@@ -24,6 +24,15 @@ def AllMovies():
         """)
     return movie_list
 
+def AllReservation():
+    con = sqlite3.connect('cinema.db')
+    con.row_factory = sqlite3.Row
+    cur = con.cursor()
+    reservation_list = cur.execute(
+        """
+        SELECT id, name, email, title, tickets, total_price, date, start_time FROM Reservation
+        """)
+    return reservation_list
 
 app = Flask(__name__)
 @app.route("/")
@@ -103,8 +112,8 @@ def Logging():
 @app.route('/admin', methods=["GET", "POST"])
 def ShowAdmin():
     movie_list = AllMovies()
-    return render_template('adminpanel.html', movie_list=movie_list)
-
+    reservation_list = AllReservation()
+    return render_template('adminpanel.html', movie_list=movie_list, reservation_list=reservation_list)
 
 
 @app.route('/client', methods=["GET", "POST"])
@@ -200,7 +209,8 @@ def Reserve():
         con.row_factory = sqlite3.Row
         cur = con.cursor()
         cur.execute('INSERT INTO Reservation VALUES(NULL, ?, ?, ?, ?, ?, ? , ?);', (_name, _email, _title, _tickets,
-                                                                          _total_price, _date, _time))
+                                                                                   _total_price, _date, _time ))
+        cur.execute('')
         con.commit()
         return redirect('/client')
     return redirect('/client')

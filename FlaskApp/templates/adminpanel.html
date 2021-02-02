@@ -142,30 +142,36 @@
                       <th scope="col">Date</th>
                       <th scope="col">E-mail</th>
                       <th scope="col">Tickets</th>
+                      <th scope="col">Total price</th>
                     </tr>
                   </thead>
                   <tbody>
                    {% for m in reservation_list %}
                     <tr>
-
                       <td>{{m.id}}</td>
                       <td>{{m.title}}</td>
                       <td>{{m.date}}</td>
                       <td>{{m.email}}</td>
                       <td>{{m.tickets}}</td>
+                      <td>{{m.total_price}}</td>
                     </tr>
                    {% endfor %}
                   </tbody>
+                    <tr>
+                      <td>d</td>
+                      <td>d</td>
+                      <td>d</td>
+                      <td>d</td>
+                      <td>d</td>
+                      <td>d</td>
+                    </tr>
                 </table>
             </div>
         </div>
       <div class="row" style="margin-top:15px">
-          <footer class="footer bottom-0 w-100 d-flex">
-                <div class="col-lg-12">
-                 <span>&copy; Lukasz Adamczak & Daniel Jeziorski - CDV</span>
-                 <button type="button" class="btn btn-sm btn-outline-dark " style="margin-bottom: 5px">Log out</button>
-                </div>
-          </footer>
+          <footer class="footer position-fixed bottom-0 w-100">
+            <p>&copy; Lukasz Adamczak & Daniel Jeziorski - CDV</p>
+        </footer>
       </div>
 
     </div>
