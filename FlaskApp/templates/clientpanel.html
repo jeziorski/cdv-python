@@ -49,32 +49,40 @@
       </div>
       <div class="row">
         <div class="col-lg-6 col-md-6">
-          <form class="form-signin rounded" method="POST" action="/addmovie">
+          <form class="form-signin rounded" method="POST" action="/reserve">
 
 
             <div class="input-group mb-3">
                 <span class="input-group-text" ><i class="bi bi-film"></i></span>
-                <input type="text" name="Title" class="form-control" placeholder="Title of film" required readonly value="{{ m.title}}">
+                <input type="text" name="Title" class="form-control" placeholder="Title of film" required readonly value="{{ _title }}">
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" ><i class="bi bi-calendar-date"></i></span>
-                <input type="date" name="Date" class="form-control" placeholder="Date of film"  required readonly value="{{ m.title}}">
+                <input type="date" name="Date" class="form-control" placeholder="Date of film"  required readonly value="{{ _date }}">
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" ><i class="bi bi-clock"></i></span>
-                <input type="time" name="Time" class="form-control" placeholder="Start of film" required readonly value="{{ m.title}}">
+                <input type="time" name="Time" class="form-control" placeholder="Start of film" required readonly value="{{ _start_time }}">
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" ><i class="bi bi-alarm"></i></span>
-                <input type="number" min="0" name="Duration" class="form-control" placeholder="Duration of film" required readonly value="{{ m.title}}">
+                <input type="number" min="0" name="Duration" class="form-control" placeholder="Duration of film" required readonly value="{{ _duration_in_min }}">
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" ><i class="bi bi-wallet"></i></span>
-                <input type="number" min="0" name="Price" class="form-control" placeholder="Ticket price" required readonly value="{{ m.title}}">
+                <span class="input-group-text" ><i class="bi bi-wallet"></i></span><span class="input-group-text">PLN</span>
+                <input type="number" min="0" name="Price" class="form-control" placeholder="Ticket price" required readonly value="{{ _price }}">
             </div>
             <div class="input-group mb-3">
-                <span class="input-group-text" ><i class="bi bi-people-fill"></i></span>
+                <span class="input-group-text" ><i class="bi bi-people"></i></span>
                 <input type="number" min="0" name="Seats" class="form-control" placeholder="Tickets" required >
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1"><i class="bi bi-person"></i></span>
+                <input type="text" name="Client" class="form-control" placeholder="Name" required>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                <input type="email" name="Email" class="form-control" placeholder="E-mail" required>
             </div>
             <div class="input-group mb-3">
 
@@ -91,16 +99,18 @@
 
       </div>
 
-        <div class="row" style="margin-bottom:35px"><h1 class="text-center" style="margin:15px 0">My Reservations</h1>
+        <div class="row" style="margin-bottom:35px"><h1 class="text-center" style="margin:15px 0">My Reservation</h1>
             <div class="col-lg-12">
                 <table class="table">
                   <thead>
                     <tr>
                       <th scope="col">ID</th>
-                      <th scope="col">Film ID</th>
+                      <th scope="col">Film title</th>
                       <th scope="col">Date</th>
                       <th scope="col">Tickets</th>
                       <th scope="col">Total price</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">E-mail</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -109,32 +119,18 @@
                       <td>Mark</td>
                       <td>Otto</td>
                       <td>@mdo</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>@fat</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td colspan="2">Larry the Bird</td>
-                      <td>@twitter</td>
-                      <td></td>
+                      <th></th>
+                      <th></th>
+                      <th></th>
                     </tr>
                   </tbody>
                 </table>
             </div>
         </div>
       <div class="row" style="margin-top:15px">
-          <footer class="footer bottom-0 w-100 d-flex">
-                <div class="col-lg-12">
-                 <span>&copy; Lukasz Adamczak & Daniel Jeziorski - CDV</span>
-                 <button type="button" class="btn btn-sm btn-outline-dark " style="margin-bottom: 5px">Log out</button>
-                </div>
-          </footer>
+          <footer class="footer position-fixed bottom-0 w-100">
+            <p>&copy; Lukasz Adamczak & Daniel Jeziorski - CDV</p>
+        </footer>
       </div>
 
     </div>
