@@ -35,6 +35,8 @@ class Reservation(Model):
     title = Column(String(256),nullable=False)
     tickets = Column(Integer, nullable=False)
     total_price = Column(Integer, nullable=False)
+    date = Column(Date)
+    start_time = Column(String(256), nullable=False)
 
     #movie_id = Column(Integer, ForeignKey('movie.id'))
     #user_id = Column(Integer, ForeignKey('user.id'))

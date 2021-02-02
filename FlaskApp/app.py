@@ -123,7 +123,7 @@ def ReservationS1():
         _start_time = request.form['Time']
         _duration_in_min = request.form['Duration']
         _price = request.form['Price']
-    return render_template('client.html', _title=_title, _date=_date, _start_time=_start_time, _duration_in_min=_duration_in_min, _price=_price)
+    return render_template('clientpanel.html', _title=_title, _date=_date, _start_time=_start_time, _duration_in_min=_duration_in_min, _price=_price)
 
 @app.route('/addmovie', methods=["GET", "POST"])
 def AddMovie():
@@ -183,17 +183,20 @@ def UpdateMovie():
 @app.route('/reserve', methods=["GET", "POST"])
 def Reserve():
     if request.method == 'POST':
-
-        _name = request.form['name']
-        _email = request.form['email']
-        _title = request.form['title']
-        _tickets = request.form['inputSeats']
-        _price = request.form['price']
+        _name = request.form['Client']
+        _email = request.form['Email']
+        _title = request.form['Title']
+        _tickets = request.form['Seats']
+        _price = request.form['Price']
+        _date = request.form['Date']
+        _time = request.form['Time']
+        #_total_price= _price * _tickets
 
         con = sqlite3.connect('cinema.db')
         con.row_factory = sqlite3.Row
         cur = con.cursor()
-        cur.execute('INSERT INTO Reservation VALUES(NULL, ?, ?, ?, ?, ?);', (_name, _email, _title, _tickets, _price*_tickets))
+        cur.execute('INSERT INTO Reservation VALUES(NULL, ?, ?, ?, ?, ?, ? , ?);', (_name, _email, _title, _tickets,
+                                                                                    _price, _date, _time ))
 
         con.commit()
         return redirect('/client')
