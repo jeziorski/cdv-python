@@ -107,7 +107,6 @@ def ShowAdmin():
 @app.route('/client', methods=["GET", "POST"])
 def ShowClient():
     movie_list=AllMovies()
-    price1=AllMovies()
     return render_template('clientpanel.html', movie_list=movie_list, price1=price1)
 
 
@@ -116,6 +115,15 @@ def ShowMovies():
     movie_list = AllMovies()
     return render_template('movies.html', movie_list = movie_list)
 
+@app.route('/reservation', methods=["GET", "POST"])
+def ReservationS1():
+    if request.method == 'POST':
+        _title = request.form['Title']
+        _date = request.form['Date']
+        _start_time = request.form['Time']
+        _duration_in_min = request.form['Duration']
+        _price = request.form['Price']
+    return render_template('client.html', _title=_title, _date=_date, _start_time=_start_time, _duration_in_min=_duration_in_min, _price=_price)
 
 @app.route('/addmovie', methods=["GET", "POST"])
 def AddMovie():
