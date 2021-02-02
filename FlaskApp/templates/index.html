@@ -61,12 +61,19 @@
             </div>
             {% for m in movie_list %}
             <div class="col-lg-12 shadow-sm" style="margin:15px 0">
+                <form method="POST" action='/reservation'>
                 <p class="h3">{{ m.title }} - {{ m.director }}</p>
                 <p><span>Play on {{ m.date }} </span></p>
                 <p><span><strong>Start at {{ m.start_time }}</strong></span></p>
                 <p><span>Ticket price: {{ m.price }} PLN | Available tickets:</span><span class="badge rounded-pill bg-warning text-dark">{{ m.seats }}</span></p>
                 <p><span></span></p>
-                <a class="btn btn-primary" href="/client" style="margin:15px 0">Get your tickets</a>
+                    <input type="hidden" name="Title" class="form-control"  required readonly value="{{ m.title}}">
+                    <input type="hidden" name="Date" class="form-control"  required readonly value="{{ m.date}}">
+                    <input type="hidden" name="Time" class="form-control"  required readonly value="{{ m.start_time}}">
+                    <input type="hidden" name="Duration" class="form-control"  required readonly value="{{ m.duration_in_min}}">
+                    <input type="hidden" name="Price" class="form-control"  required readonly value="{{ m.price}}">
+                <input id=""btnGetTicket class="btn btn-primary btn-block" type="'submit" style="margin:15px 0" value="Get your tickets">
+                </form>
             </div>
             {% endfor %}
         </div>
